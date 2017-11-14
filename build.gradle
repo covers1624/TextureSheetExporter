@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+		mavenCentral()
+        jcenter()
+    }
+}
+apply plugin: 'java'
+apply plugin: 'idea'
+
+version = "1.0"
+group= "net.covers1624"
+archivesBaseName = "TextureExporter"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+}
+
+def commonManifest = {
+	attributes 'Main-Class': 'net.covers1624.tsexporter.Launcher'
+}
+
+jar {
+	manifest commonManifest
+}
+
+build.dependsOn jar
+
+idea {
+    module{
+        sourceDirs += file('src/main/java')
+        sourceDirs += file('src/main/resources')
+
+        scopes.PROVIDED.plus += [configurations.compile]
+
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+
+
